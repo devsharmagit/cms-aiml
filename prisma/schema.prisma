@@ -85,7 +85,8 @@ model Category {
 model Document {
   id         String     @id @default(cuid())
   name       String
-  slug       String     @unique
+  url        String
+  publicId   String
   categories Category[] @relation("DocumentCategories")
   createdAt  DateTime   @default(now())
   user       User       @relation(fields: [userId], references: [id])
