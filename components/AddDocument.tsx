@@ -57,9 +57,9 @@ const AddDocument = ({ categoryId }: { categoryId: string }) => {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="flex gap-2 flex-col items-center justify-center h-auto m-auto mt-5"
+          className="flex gap-2  items-center justify-center h-auto m-auto mt-5"
         >
-          <Upload height={35} width={35} />
+          <Upload height={20} width={20} />
           <p className="text-base text-opacity-70">Add Document</p>
         </Button>
       </DialogTrigger>
