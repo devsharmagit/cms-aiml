@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import cloudinary from "cloudinary";
 import fs from "node:fs/promises";
 import prisma from "../db";
-import {authOption} from "../../app/api/auth/[...nextauth]/route"
+import { authOption } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 
 
@@ -38,6 +38,7 @@ export async function uploadDocument(formData: FormData) {
     })
     fs.unlink(`./public/uploads/${file.name}`)
     revalidatePath(`/categoryId/${categoryId}`); 
+    return true
   } catch (error) {
     console.log(error)
   }

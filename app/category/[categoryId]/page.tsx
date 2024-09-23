@@ -1,6 +1,13 @@
 import Category from '@/components/Category'
+import prisma from '@/lib/db'
 import React from 'react'
 
+export async function generateStaticParams() {
+  const categories = await prisma.category.findMany()
+  return categories.map((post) => ({
+    categoryId: post.id,
+  }))
+}
 
 const Page = ({params : {categoryId}} : {params:{categoryId: string}}) => {
   

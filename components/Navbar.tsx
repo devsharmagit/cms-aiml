@@ -1,27 +1,40 @@
-"use client"
+"use client";
 import React from "react";
-import { ThemeToggler } from "@/components/ThemeToggler";
+// import { ThemeToggler } from "@/components/ThemeToggler";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { GithubIcon, TwitterIcon } from "./icons";
-import { signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 
-
 const Navbar = () => {
+  const {  status } = useSession();
+
+  const handleSignClick = () => {
+    if (status === "authenticated") {
+      signOut();
+    } else {
+      signIn("google");
+    }
+  };
+
   return (
     <>
       <div className="py-3 px-4 w-full max-w-7xl m-auto flex justify-between items-center">
-        <Link href={"/"} >
-        <h1 className="dark:text-white font-semibold text-2xl ">
-          CMS - AI/ML
-        </h1>
+        <Link href={"/"}>
+          <h1 className="dark:text-white font-semibold text-2xl ">
+            CMS - AI/ML
+          </h1>
         </Link>
         <div className="flex gap-3 items-center">
-          <Button onClick={()=>signOut()} variant={"ghost"} className="border-opacity-20 border border-white">
-            Sign out
+          <Button
+            onClick={handleSignClick}
+            variant={"ghost"}
+            className="border-opacity-20 border border-white"
+          >
+            {status === "authenticated" ? "Sign Out" : "Sign In"}
           </Button>
-          <ThemeToggler />
+          {/* <ThemeToggler /> */}
           <Link href={"https://x.com/CodeDevsharma"} target="_blank">
             <TwitterIcon />
           </Link>

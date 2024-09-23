@@ -7,7 +7,6 @@ export const addCategoriesToDB = async()=>{
         await prisma.category.create({data:{
             name: title
         }})
-        console.log("successfully added " + title)
     })
 }
 

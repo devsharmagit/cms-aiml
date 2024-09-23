@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Upload } from "lucide-react";
+import { Loader, Upload } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -35,6 +35,10 @@ const formSchema = z.object({
 });
 
 const AddDocument = ({ categoryId }: { categoryId: string }) => {
+
+const [isOpen,setIsOpen] = useState<boolean>(false)
+const [isLoading,setIsLoading] = useState<boolean>(false)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,20 +48,32 @@ const AddDocument = ({ categoryId }: { categoryId: string }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData = new FormData
-    formData.append("documentName", values.documentName)
-    formData.append("categoryId", values.categoryId)
-    formData.append("file", values.file)
-    uploadDocument(formData)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setIsLoading(true)
+      const formData = new FormData
+      formData.append("documentName", values.documentName)
+      formData.append("categoryId", values.categoryId)
+      formData.append("file", values.file)
+      const result = await uploadDocument(formData)
+      if(result){
+        setIsOpen(false)
+      }  
+    } catch (error) {
+      console.log(error)
+      setIsOpen(false)
+    }finally{
+      setIsLoading(false)
+    }
+    
   }
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="flex gap-2  items-center justify-center h-auto m-auto mt-5"
+          className="flex gap-2  items-center justify-center h-auto "
         >
           <Upload height={20} width={20} />
           <p className="text-base text-opacity-70">Add Document</p>
@@ -81,7 +97,6 @@ const AddDocument = ({ categoryId }: { categoryId: string }) => {
                   <FormControl>
                     <Input placeholder="Document name" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -106,7 +121,11 @@ const AddDocument = ({ categoryId }: { categoryId: string }) => {
               )}
             </FormItem>
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit">
+              {isLoading ?  <Loader />:
+              "Submit"
+              }
+              </Button>
           </form>
         </Form>
       </DialogContent>
