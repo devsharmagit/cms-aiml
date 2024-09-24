@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## CMS AI ML
 
-## Getting Started
+A web app made using nextjs for just my college students to access the notes arranged topic wise.
 
-First, run the development server:
+### images to showcase
+![image](https://github.com/user-attachments/assets/8677a70e-5f8d-4eb4-95e5-8081a5b8442c)
+![image](https://github.com/user-attachments/assets/25cb8573-7c9e-4d89-b8a3-323f391a3715)
+![image](https://github.com/user-attachments/assets/c283fbac-d432-429b-812d-2b86dece09fa)
 
+
+To run the project:
+dont forget to add neccessary invironment variables
 ```bash
+mv .env.sample .env
+npm install
+npm prisma migrate dev
+npm prisma generate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
